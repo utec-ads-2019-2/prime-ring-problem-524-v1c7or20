@@ -13,23 +13,30 @@ bool is_prime(int p) {
     return false;
 }
 void make(int n, int m){
-    if(n==m-1 and is_prime(ans[n]+ans[n-1])){
-        for (int i = 0; i < m; i) {
-            cout<<ans[i]<<" ";
+    if(n==m-1 and is_prime(1+ans[m-1])){
+        for (int i = 0; i < m; i++) {
+            printf(i == m - 1? "%d" : "%d ", ans[i]);
         }cout<<endl;
         return;
     }
-    for (int j = 2; j < m; ++j) {
+    for (int j = 2; j <= m; ++j) {
         if (!(used[j]) and is_prime(ans[n]+j)){
-            
+            used[j]=true;
+            ans[n+1]=j;
+            make(n+1,m);
+            used[j]=false;
         }
     }
 }
 
 int main() {
-    int n=2;
-    ans[0]=ans[n]=1;
-    auto * vector1 = new vector<vector<int>>(n/2);
-
-    return 0;
+    int n;
+    int T = 0;
+    while(scanf("%d", &n) == 1) {
+        T++;
+        if(T > 1) printf("\n");
+        ans[0] = 1;
+        printf("Case %d:\n", T);
+        make(0,n);
+    }
 }
